@@ -13,7 +13,7 @@ class Xtrap::HtmlGenerator
     `mkdir "#{name}"/js`
   end
 
-  def create_files
+  def create_empty_files
     `touch "#{name}"/css/style.css`
     `touch "#{name}"/js/javascript.js`
   end

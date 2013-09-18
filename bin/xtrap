@@ -1,0 +1,94 @@
+#!/usr/bin/env ruby
+require 'gli'
+require 'xtrap'
+
+include GLI:App
+
+program_desc "Simple bootstrapper for basic HTML projects and directory structures"
+
+version Xtrap::1.0.0
+
+desc "Ruby Gem"
+switch [:r, :rubygem]
+
+desc "HTML"
+switch [:h, :html]
+
+desc "Include AngularJS"
+switch [:a, :angularjs]
+
+desc "Include Bootstrap"
+switch [:b, :bootstrap]
+
+desc "Include jQuery"
+switch [:j, :jquery]
+
+desc 'Name of new project'
+default_value 'new_project'
+arg_name 'name'
+flag [:n, :name]
+
+desc 'List of linkable libraries'
+arg_name 'Bootstrap, AngularJS'
+command :list do |c|
+
+  c.desc 'AngularJS'
+  c.switch :a
+
+  c.desc 'Bootstrap'
+  c.switch :b
+
+  c.desc 'HTML'
+  c.switch :h
+
+  c.desc 'jQuery'
+  c.switch :j
+
+  c.desc 'RubyGem'
+  c.switch :r
+
+  c.desc 'Name'
+  c.default_value 'new_project'
+  c.flag :n
+  c.action do |global_options, options, args|
+    # logic
+    puts "list command ran"
+  end
+end
+
+desc 'Describe add here'
+arg_name 'Describe arguments to add here'
+command :add do |c|
+  c.action do |global_options,options,args|
+    puts "add command ran"
+  end
+end
+
+desc 'Describe complete here'
+arg_name 'Describe arguments to complete here'
+command :complete do |c|
+  c.action do |global_options,options,args|
+    puts "complete command ran"
+  end
+end
+
+pre do |global,command,options,args|
+  # Pre logic here
+  # Return true to proceed, false to abort and not call the command
+  # Use skips_pre before a command to skip this block on that command only
+  true
+end
+
+post do |global,command,options,args|
+  # Post logic
+  # use skips_post before a command to skip this
+  # block on that command only
+end
+
+on_error do |exception|
+  # error logic
+  # return false to skip default error handling
+  true
+end
+
+exit run(ARGV)
